@@ -65,6 +65,11 @@ function log_info() {
     print_green "[ INFO ] ${msg}"
 }
 
+function log_warn() {
+    msg=$1
+    print_yellow "[ WARN ] ${msg}"
+}
+
 function log_err() {
     msg=$1
     p=$(print_red "[ ERROR ] ${msg}")
