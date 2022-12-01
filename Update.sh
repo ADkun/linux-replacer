@@ -142,6 +142,14 @@ function replace_files() {
     echo "${rel_paths}" | while read -r line; do
         local src_path="${files_path}/${line}"
         local target_path="${INSTALLPATH}/${line}"
+        local target_dir=${target_path%/*}
+        if [[ ! -d "${target_dir}" ]]; then
+            if mkdir -p "${target_dir}"; then
+                log_info "Mkdir ${target_dir} success"
+            else
+                log_err "Mkdir ${target_dir} failed"
+            fi
+        fi
         if which yes >/dev/null; then
             if yes | cp -p -f "${src_path}" "${target_path}"; then
                 log_info "Patch ${target_path}"
