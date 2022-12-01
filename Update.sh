@@ -134,6 +134,10 @@ function backup_files() {
         local src_path="${INSTALLPATH}/${line}"
         local target_path="${bak_path}/${line}.${tstr}"
         local temp_dir=${target_path%/*}
+        if [[ ! -f "${src_path}" ]]; then
+            log_warn "Source file ${src_path} doesn't exists, skip."
+            continue
+        fi
         mkdir -p "${temp_dir}"
         if cp -p "${src_path}" "${target_path}"; then
             log_info "Backup to ${target_path}"
